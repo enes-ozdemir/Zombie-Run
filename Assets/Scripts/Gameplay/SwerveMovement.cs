@@ -1,14 +1,12 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace DefaultNamespace
+namespace Gameplay
 {
     public class SwerveMovement : MonoBehaviour
     {
         private SwerveInputSystem _swerveInputSystem;
         [SerializeField] private float swerveSpeed = 0.5f;
         [SerializeField] private float maxSwerveAmount = 1f;
-
 
         private void Awake()
         {

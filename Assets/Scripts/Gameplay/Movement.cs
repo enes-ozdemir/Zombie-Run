@@ -1,9 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
-
 public class Movement : MonoBehaviour
 {
     [SerializeField] private float movementSpeed = 10f;
@@ -16,6 +11,7 @@ public class Movement : MonoBehaviour
 
     void FixedUpdate()
     {
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + Vector3.forward, movementSpeed * Time.deltaTime);
         _rigidbody.AddForce(new Vector3(0, 0, movementSpeed * Time.deltaTime));
     }
 }
