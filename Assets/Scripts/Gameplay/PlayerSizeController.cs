@@ -1,22 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 using Random = UnityEngine.Random;
 
 namespace Gameplay
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerSizeController : MonoBehaviour
     {
-        public List<CharacterBase> characters = new List<CharacterBase>();
+        public List<CharacterBase> characters = new();
         public int startCharacterSize = 5;
         public int currentCharacterSize;
-        private bool isFighting = false;
-        [SerializeField] private GameObject playerCharacter;
 
         #region Singleton
 
-        public static PlayerController instance;
+        public static PlayerSizeController instance;
 
         private void Awake()
         {
@@ -36,9 +33,12 @@ namespace Gameplay
             Debug.Log("Entered MoveCenter");
             while (transform.position != new Vector3(0f, transform.position.y, transform.position.z))
             {
-                transform.position = Vector3.MoveTowards(transform.position,
-                    new Vector3(0f, transform.position.y, transform.position.z),
+                var position = transform.position;
+                position = Vector3.MoveTowards(position,
+                    new Vector3(0f, position.y, position.z),
                     100f * Time.deltaTime);
+                
+                transform.position = position;
                 yield return null;
             }
         }
@@ -47,7 +47,7 @@ namespace Gameplay
         {
             if (collision.transform.CompareTag("Waypoint"))
             {
-                Debug.Log("Enteed waypoint");
+                Debug.Log("Entered to a waypoint");
 
                 var currentOperation = collision.GetComponent<Waypoint>().operation;
                 var currentValue = collision.GetComponent<Waypoint>().value;
@@ -80,12 +80,18 @@ namespace Gameplay
         {
             Debug.Log("Entered RemoveCharacter");
 
-            for (int i = 0; i < size; i++)
+            for (var i = 0; i < size; i++)
             {
                 characters[i].PlayDeadAnim();
                 characters.RemoveAt(currentCharacterSize - 1);
                 currentCharacterSize--;
                 ObjectPooler.KillZombie(characters[i].gameObject);
+                
+                if(currentCharacterSize<=0)
+                {
+                    //TODO: Game Over
+                }
+                
                 //characters[i].gameObject.SetActive(false);
             }
         }
@@ -101,7 +107,7 @@ namespace Gameplay
             Debug.Log("Entered AddCharacter");
             currentCharacterSize += size;
 
-            for (int i = 0; i < size; i++)
+            for (var i = 0; i < size; i++)
             {
                 var position = transform.position;
                 Vector3 pos = new Vector3(Random.Range
@@ -114,24 +120,13 @@ namespace Gameplay
                 addedCharacter.transform.localEulerAngles = Vector3.zero;
                 addedCharacter.transform.position = pos;
                 addedCharacter.transform.parent = transform;
-                yield return new WaitForSeconds(0.1f);
                 //addedCharacter.GetComponent<Character>().index = characters.Count;
                 addedCharacter.transform.localPosition = Vector3.MoveTowards(addedCharacter.transform.localPosition,
                     position, 2f * Time.deltaTime);
+                
+                yield return new WaitForSeconds(0.1f);
+
             }
         }
-
-
-        // public void RemoveCharacter(int size)
-        // {
-        //     for(int i = 0; i < size; i++)
-        //     {
-        //         if(currentCharacterSize > 0)
-        //         {
-        //             characters[0].gameObject.SetActive(false);
-        //             CharacterDeath(characters[0].index);
-        //         }
-        //     }
-        // }
     }
 }

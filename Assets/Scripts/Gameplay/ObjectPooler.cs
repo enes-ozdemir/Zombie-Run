@@ -40,7 +40,7 @@ namespace Gameplay
             {
                 Queue<GameObject> objectPool = new Queue<GameObject>();
 
-                for (int i = 0; i < pool.size; i++)
+                for (var i = 0; i < pool.size; i++)
                 {
                     GameObject obj = Instantiate(pool.gameObject);
                     obj.SetActive(false);
