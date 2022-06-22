@@ -24,7 +24,7 @@ namespace Gameplay
 
         #endregion
 
-        private Dictionary<string, Queue<GameObject>> _poolDictionary;
+        private static Dictionary<string, Queue<GameObject>> _poolDictionary;
         public List<Pool> pools;
 
         private void Start()
@@ -47,12 +47,14 @@ namespace Gameplay
                     objectPool.Enqueue(obj);
                 }
 
+                Debug.Log($"pool tag {pool.tag} added");
                 _poolDictionary.Add(pool.tag, objectPool);
             }
         }
 
-        public GameObject SpawnZombie(string charTag, Vector3 position, Quaternion rotation)
+        public GameObject SpawnCharacter(string charTag, Vector3 position, Quaternion rotation)
         {
+            Debug.Log($"Character {charTag} spawned");
             if (!_poolDictionary.ContainsKey(charTag)) return null;
 
             GameObject objectToSpawn = _poolDictionary[charTag].Dequeue();
@@ -66,7 +68,7 @@ namespace Gameplay
             return objectToSpawn;
         }
 
-        public static void KillZombie(GameObject zombie)
+        public static void KillCharacter(GameObject zombie)
         {
             zombie.SetActive(false);
         }
