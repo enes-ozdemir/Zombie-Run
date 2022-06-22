@@ -2,7 +2,7 @@
 
 namespace Gameplay
 {
-    public abstract class CharacterBase : MonoBehaviour
+    public class CharacterBase : MonoBehaviour
     {
         public bool isDead = false;
         public bool canMove = false;
@@ -14,15 +14,19 @@ namespace Gameplay
         public void Start()
         {
             _rb = GetComponent<Rigidbody>();
+            target = transform.parent.GetComponentInParent<Transform>();
         }
-
-        public abstract void CharacterDie();
-
+        
         private void FixedUpdate()
         {
             _characterDirection = (target.position - transform.position).normalized;
             _rb.AddForce(_characterDirection * Vector3.Distance(target.position, transform.position) * 55f, ForceMode.Force);
-
         }
+
+        public void PlayDeadAnim()
+        {
+            Debug.Log("Dead");
+        }
+        
     }
 }
