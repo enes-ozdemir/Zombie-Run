@@ -24,7 +24,7 @@ namespace Gameplay
 
         #endregion
 
-        private static Dictionary<string, Queue<GameObject>> _poolDictionary;
+        private Dictionary<string, Queue<GameObject>> _poolDictionary;
         public List<Pool> pools;
 
         private void Start()
@@ -68,9 +68,9 @@ namespace Gameplay
             return objectToSpawn;
         }
 
-        public static void KillCharacter(GameObject zombie)
+        public void KillCharacter(GameObject gameObject)
         {
-            zombie.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 }

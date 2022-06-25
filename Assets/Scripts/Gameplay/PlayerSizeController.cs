@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Gameplay
 {
@@ -14,6 +16,9 @@ namespace Gameplay
         // }
         //
         // #endregion
+
+        [SerializeField] private UnityEvent onEnemyEncounter;
+
         private void OnTriggerEnter(Collider collision)
         {
             if (collision.transform.CompareTag("Waypoint"))
@@ -25,7 +30,46 @@ namespace Gameplay
 
                 SetNewCharacterSize(currentOperation, currentValue, "Zombie");
             }
+
+            if (collision.transform.CompareTag("Enemy"))
+            {
+                onEnemyEncounter.Invoke();
+                var enemySize = collision.GetComponentInParent<BaseSizeController>();
+                if (enemySize == null)
+                {
+                    Debug.LogError("Enemy is null");
+                }
+
+                Battle(enemySize);
+            }
         }
+
+        private void Battle(BaseSizeController enemySizeController)
+        {
+            StartCoroutine(BattleCoroutine(enemySizeController));
+        }
+
+        private IEnumerator BattleCoroutine(BaseSizeController enemySizeController)
+        {
+            Debug.Log($"Enemy size: {enemySizeController.currentCharacterSize} , Player size: {currentCharacterSize}");
+            while (enemySizeController.currentCharacterSize > 0 && currentCharacterSize > 0)
+            {
+                //todo battle animation for both
+                RemoveCharacter(1);
+                enemySizeController.RemoveCharacter(1);
+                yield return new WaitForSeconds(0.1f);
+            }
+
+            if (currentCharacterSize == 0)
+            {
+                //todo gameover
+            }
+            else
+            {
+                onEnemyEncounter.Invoke();
+            }
+        }
+
 
         private void SetNewCharacterSize(Waypoint.Operation currentOperation, int currentValue, string charTag)
         {

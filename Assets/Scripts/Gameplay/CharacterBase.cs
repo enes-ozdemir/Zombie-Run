@@ -4,7 +4,6 @@ namespace Gameplay
 {
     public class CharacterBase : MonoBehaviour
     {
-        [SerializeField] private bool canMove = true;
         private Transform _target;
         private Vector3 _characterDirection;
         private Rigidbody _rb;

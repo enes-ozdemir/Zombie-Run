@@ -9,13 +9,7 @@ namespace Gameplay
 
         [SerializeField] private int startSize = 1;
         [SerializeField] private int enemyCount;
-        [SerializeField] private string enemyName;
 
 
-        private void Awake()
-        {
-            //_baseSizeController.currentCharacterName = enemyName;
-           // _baseSizeController.startCharacterSize = startSize;
-        }
     }
 }

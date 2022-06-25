@@ -7,7 +7,7 @@ namespace Gameplay
 {
     public class BaseSizeController : MonoBehaviour
     {
-        public List<Character> characters = new();
+        public List<CharacterBase> characters = new();
         public int startCharacterSize = 5;
         public int currentCharacterSize;
         public string currentCharacterName = "Zombie";
@@ -19,16 +19,16 @@ namespace Gameplay
             currentCharacterSize = startCharacterSize;
         }
 
-        protected void RemoveCharacter(int size)
+        public void RemoveCharacter(int size)
         {
             Debug.Log("Entered RemoveCharacter");
 
             for (var i = 0; i < size; i++)
             {
-                characters[i].animationController.PlayDeadAnim();
-                characters.RemoveAt(currentCharacterSize - 1);
+                //characters[i].animationController.PlayDeadAnim();
+                ObjectPooler.Instance.KillCharacter(characters[i].gameObject);
+                characters.RemoveAt(i);
                 currentCharacterSize--;
-                ObjectPooler.KillCharacter(characters[i].gameObject);
 
                 if (currentCharacterSize <= 0)
                 {
@@ -58,7 +58,7 @@ namespace Gameplay
                     Random.Range(position.z - 1, position.z + 1));
 
                 GameObject addedCharacter = ObjectPooler.Instance.SpawnCharacter(charTag, pos, Quaternion.identity);
-                characters.Add(addedCharacter.GetComponent<Character>());
+                characters.Add(addedCharacter.GetComponent<CharacterBase>());
                 addedCharacter.SetActive(true);
                 addedCharacter.transform.localEulerAngles = Vector3.zero;
                 addedCharacter.transform.position = pos;
@@ -67,7 +67,7 @@ namespace Gameplay
                 addedCharacter.transform.localPosition = Vector3.MoveTowards(addedCharacter.transform.localPosition,
                     position, 2f * Time.deltaTime);
 
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(0.03f);
             }
         }
     }
