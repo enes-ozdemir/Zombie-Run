@@ -1,15 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.Pool;
+using UnityEngine.Serialization;
 
 namespace Gameplay
 {
-    public class Enemy : CharacterBase
+    public class Enemy : Character
     {
         [SerializeField] private GameObject enemyPrefab;
-        private BaseSizeController _baseSizeController;
+         public BaseSizeController sizeController;
 
-        [SerializeField] private int startSize = 1;
-        [SerializeField] private int enemyCount;
-
-
+        private void Awake()
+        {
+        }
     }
 }

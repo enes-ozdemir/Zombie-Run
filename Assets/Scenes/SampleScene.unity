@@ -572,7 +572,7 @@ Transform:
   - {fileID: 447123136}
   - {fileID: 1929114283}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
 --- !u!114 &475529079
 MonoBehaviour:
@@ -902,13 +902,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 814997675}
+  - component: {fileID: 814997684}
+  - component: {fileID: 814997681}
   - component: {fileID: 814997678}
   - component: {fileID: 814997676}
+  - component: {fileID: 814997685}
   - component: {fileID: 814997680}
   - component: {fileID: 814997682}
-  - component: {fileID: 814997681}
   - component: {fileID: 814997683}
-  - component: {fileID: 814997684}
   m_Layer: 0
   m_Name: Players
   m_TagString: Main
@@ -974,6 +975,7 @@ MonoBehaviour:
   startCharacterSize: 20
   currentCharacterSize: 0
   currentCharacterName: Zombie
+  characterPool: {fileID: 0}
   onEnemyEncounter:
     m_PersistentCalls:
       m_Calls:
@@ -1044,6 +1046,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 1
+--- !u!114 &814997685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814997674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 371ee9e528c6402195a8a16ea7ca0417, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterPrefab: {fileID: -277519688549694218, guid: ba18968fa3390ca44b018db3aa7c450a,
+    type: 3}
+  sizeController: {fileID: 0}
 --- !u!1 &819367747
 GameObject:
   m_ObjectHideFlags: 0
@@ -1141,7 +1158,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &819367752
 MonoBehaviour:
@@ -1384,10 +1401,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1346539870}
-  - component: {fileID: 1346539869}
   - component: {fileID: 1346539871}
   - component: {fileID: 1346539873}
   - component: {fileID: 1346539872}
+  - component: {fileID: 1346539875}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Enemy
@@ -1395,26 +1412,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1346539869
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1346539868}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e0e77a7b03c44fc88d29e2d2d902c81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pools:
-  - tag: 
-    gameObject: {fileID: 0}
-    size: 0
-  - tag: Police
-    gameObject: {fileID: 4119166543106120799, guid: 0ae677912d88a4947b3eec8cf84a3fa8,
-      type: 3}
-    size: 50
 --- !u!4 &1346539870
 Transform:
   m_ObjectHideFlags: 0
@@ -1429,7 +1426,7 @@ Transform:
   m_Children:
   - {fileID: 198682207}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1346539871
 MonoBehaviour:
@@ -1444,9 +1441,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characters: []
-  startCharacterSize: 10
+  startCharacterSize: 20
   currentCharacterSize: 0
   currentCharacterName: Police
+  characterPool: {fileID: 0}
 --- !u!65 &1346539872
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1476,6 +1474,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &1346539875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346539868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 371ee9e528c6402195a8a16ea7ca0417, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterPrefab: {fileID: 112163592254226062, guid: 0ae677912d88a4947b3eec8cf84a3fa8,
+    type: 3}
+  sizeController: {fileID: 0}
 --- !u!1 &1400463164
 GameObject:
   m_ObjectHideFlags: 0
@@ -1572,7 +1585,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1400463169
 MonoBehaviour:
@@ -1845,7 +1858,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1781100978
 MonoBehaviour:
@@ -1977,7 +1990,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1804511311
 PrefabInstance:
@@ -2074,7 +2087,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1816410223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2082,7 +2095,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1816410222}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e0e77a7b03c44fc88d29e2d2d902c81, type: 3}
   m_Name: 
@@ -2212,7 +2225,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1854599225
 MonoBehaviour:
@@ -2250,7 +2263,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1855968018
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2296,6 +2309,7 @@ MonoBehaviour:
   startCharacterSize: 20
   currentCharacterSize: 0
   currentCharacterName: Police
+  characterPool: {fileID: 0}
 --- !u!114 &1855968021
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,18 +6,8 @@ namespace Gameplay
 {
     public class PlayerSizeController : BaseSizeController
     {
-        // #region Singleton
-        //
-        // public static PlayerSizeController instance;
-        //
-        // private void Awake()
-        // {
-        //     instance = this;
-        // }
-        //
-        // #endregion
-
-        [SerializeField] private UnityEvent onEnemyEncounter;
+    
+        [SerializeField] public UnityEvent onEnemyEncounter;
 
         private void OnTriggerEnter(Collider collision)
         {
@@ -28,7 +18,7 @@ namespace Gameplay
                 var currentOperation = collision.GetComponent<Waypoint>().operation;
                 var currentValue = collision.GetComponent<Waypoint>().value;
 
-                SetNewCharacterSize(currentOperation, currentValue, "Zombie");
+                SetNewCharacterSize(currentOperation, currentValue);
             }
 
             if (collision.transform.CompareTag("Enemy"))
@@ -39,51 +29,28 @@ namespace Gameplay
                 {
                     Debug.LogError("Enemy is null");
                 }
+                else
+                {
+                    Debug.LogError("BattleSystem is called");
+                    gameObject.AddComponent<BattleSystem>().Battle(enemySize, this);
 
-                Battle(enemySize);
+                }
             }
         }
 
-        private void Battle(BaseSizeController enemySizeController)
-        {
-            StartCoroutine(BattleCoroutine(enemySizeController));
-        }
-
-        private IEnumerator BattleCoroutine(BaseSizeController enemySizeController)
-        {
-            Debug.Log($"Enemy size: {enemySizeController.currentCharacterSize} , Player size: {currentCharacterSize}");
-            while (enemySizeController.currentCharacterSize > 0 && currentCharacterSize > 0)
-            {
-                //todo battle animation for both
-                RemoveCharacter(1);
-                enemySizeController.RemoveCharacter(1);
-                yield return new WaitForSeconds(0.1f);
-            }
-
-            if (currentCharacterSize == 0)
-            {
-                //todo gameover
-            }
-            else
-            {
-                onEnemyEncounter.Invoke();
-            }
-        }
-
-
-        private void SetNewCharacterSize(Waypoint.Operation currentOperation, int currentValue, string charTag)
+        private void SetNewCharacterSize(Waypoint.Operation currentOperation, int currentValue)
         {
             switch (currentOperation)
             {
                 case Waypoint.Operation.Add:
-                    AddCharacter(currentValue, charTag);
+                    AddCharacter(currentValue);
                     break;
                 case Waypoint.Operation.Subtract:
                     RemoveCharacter(currentValue);
                     currentCharacterSize -= currentValue;
                     break;
                 case Waypoint.Operation.Multiply:
-                    AddCharacter(currentCharacterSize * currentValue - currentCharacterSize, charTag);
+                    AddCharacter(currentCharacterSize * currentValue - currentCharacterSize);
                     break;
                 case Waypoint.Operation.Divide:
                     RemoveCharacter(currentCharacterSize - currentCharacterSize / currentValue);
