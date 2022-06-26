@@ -9,9 +9,13 @@ namespace Gameplay
     {
         [SerializeField] private GameObject enemyPrefab;
          public BaseSizeController sizeController;
+         public EnemyType enemyType;
 
-        private void Awake()
-        {
+        
+        public enum EnemyType {
+            Human,
+            Police,
+            Boss
         }
     }
 }

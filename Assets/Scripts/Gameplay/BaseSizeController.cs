@@ -21,13 +21,14 @@ namespace Gameplay
         private void Start()
         {
             Debug.Log($"currentCharacterName: {currentCharacterName}");
-            currentCharacterSize = startCharacterSize;
             AddCharacter(startCharacterSize);
+            currentCharacterSize = startCharacterSize;
+
         }
 
         public void RemoveCharacter(int size)
         {
-            Debug.Log("Entered RemoveCharacter");
+            Debug.Log("Entered RemoveCharacter "+size);
 
             for (var i = 0; i < size; i++)
             {
