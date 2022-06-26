@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,28 +14,32 @@ namespace Gameplay
 
         private void Start()
         {
+            var boss = ((Boss)GetComponent<EnemyCharacter>().enemy);
+            maxHealth = boss.maxHealth;
             currentHealth = maxHealth;
         }
-        
-        public void SetHealth(float amount)
+
+        private void SetHealth(float amount)
         {
+            Debug.Log("Health changed");
             healthBar.fillAmount = amount;
         }
 
         public void TakeDamage(int amount)
         {
-            StartCoroutine(TakeDamageCoroutine(amount));
+            //StartCoroutine(TakeDamageCoroutine(amount));
+            TakeDamageCoroutine(amount);
         }
         
-        private IEnumerator TakeDamageCoroutine(int amount)
+        private void TakeDamageCoroutine(int amount)
         {
             currentHealth -= amount;
-            healthBar.fillAmount = (float)currentHealth / (float)maxHealth;
-            yield return new WaitForSeconds(0.1f);
+            SetHealth((float) currentHealth / maxHealth);
+
             if (currentHealth <= 0)
             {
                 healthCanvas.enabled = false;
-                Destroy(gameObject);
+                transform.gameObject.SetActive(false);
             }
         }   
 

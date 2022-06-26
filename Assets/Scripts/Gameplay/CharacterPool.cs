@@ -1,45 +1,45 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Gameplay
 {
     public class CharacterPool : MonoBehaviour
     {
-        public const string Tag = "CharacterPool";
-        public IObjectPool<Character> _characterPool;
-        [SerializeField] private Character characterPrefab;
-        [SerializeField] private BaseSizeController sizeController;
+        public IObjectPool<CharacterBase> characterPool;
+        [SerializeField] private CharacterBase characterPrefab;
+        private BaseSizeController _sizeController;
 
         void Awake()
         {
-            sizeController = GetComponent<BaseSizeController>();
-            _characterPool = new ObjectPool<Character>(CreateCharacter, OnGet, OnRelease);
+            _sizeController = GetComponent<BaseSizeController>();
+            characterPool = new ObjectPool<CharacterBase>(CreateCharacter, OnGet, OnRelease);
         }
 
-        private Character CreateCharacter()
+        private CharacterBase CreateCharacter()
         {
             Debug.Log("Create Character called");
             var character = Instantiate(characterPrefab, transform);
-            sizeController.characters.Add(character);
-            character.SetPool(_characterPool);
+            _sizeController.characters.Add(character);
+            character.SetPool(characterPool);
             return character;
         }
 
-        private void OnRelease(Character character)
+        private void OnRelease(CharacterBase characterBase)
         {
             Debug.Log("Create Character called",this);
 
-            character.gameObject.SetActive(false);
+            characterBase.gameObject.SetActive(false);
         }
 
-        private void OnGet(Character character)
+        private void OnGet(CharacterBase characterBase)
         {
             Debug.Log("Entered OnGet");
 
-            character.gameObject.SetActive(true);
-            var characterTransform = character.transform;
+            characterBase.gameObject.SetActive(true);
+            var characterTransform = characterBase.transform;
             var position = transform.position;
 
             Vector3 pos = new Vector3(Random.Range
@@ -48,9 +48,9 @@ namespace Gameplay
 
             characterTransform.position = pos;
             characterTransform.localEulerAngles = Vector3.zero;
-            characterTransform.parent = characterTransform;
+           // characterTransform.parent = characterTransform;
 
-            character.transform.localPosition = Vector3.MoveTowards(characterTransform.localPosition,
+            characterBase.transform.localPosition = Vector3.MoveTowards(characterTransform.localPosition,
                 characterTransform.position, 2f * Time.deltaTime);
         }
     }

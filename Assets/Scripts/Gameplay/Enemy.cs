@@ -1,21 +1,17 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Pool;
-using UnityEngine.Serialization;
+﻿using UnityEngine;
 
 namespace Gameplay
 {
-    public class Enemy : Character
+    [CreateAssetMenu]
+    public class Enemy : ScriptableObject
     {
-        [SerializeField] private GameObject enemyPrefab;
-         public BaseSizeController sizeController;
-         public EnemyType enemyType;
+        public EnemyType enemyType;
 
-        
-        public enum EnemyType {
+        public enum EnemyType
+        {
             Human,
             Police,
-            Boss
+            Boss,
         }
     }
 }

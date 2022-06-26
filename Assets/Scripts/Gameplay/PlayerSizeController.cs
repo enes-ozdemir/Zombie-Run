@@ -30,20 +30,23 @@ namespace Gameplay
                 }
                 else
                 {
-                    var enemy = collision.GetComponent<Enemy>();
+                    var enemy = collision.GetComponent<EnemyCharacter>();
                     Debug.Log("BattleSystem is called");
 
-                    switch (enemy.enemyType)
+                    switch (enemy.enemy.enemyType)
                     {
                         case Enemy.EnemyType.Police:
+                            Debug.Log("Enemy type is Police");
                             gameObject.AddComponent<BattleSystem>().Battle(enemySize, this);
                             break;
                         case Enemy.EnemyType.Human:
+                            Debug.Log("Enemy type is Human");
                             gameObject.AddComponent<BattleSystem>().EatHuman(enemySize, this);
                             break;
                         case Enemy.EnemyType.Boss:
-                            var enemyHealth = collision.GetComponentInParent<HealthController>();
-                            gameObject.AddComponent<BattleSystem>().BossBattle(enemyHealth, this);
+                            Debug.Log("Enemy type is Boss");
+                            var enemyCharacter = collision.GetComponent<EnemyCharacter>();
+                            gameObject.AddComponent<BattleSystem>().BossBattle(enemyCharacter, this);
                             break;
                     }
                 }

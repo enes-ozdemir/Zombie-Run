@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace Gameplay
 {
     public class BattleSystem : MonoBehaviour
     {
-        public void Battle(BaseSizeController enemySizeController,BaseSizeController playerSizeController)
+        public void Battle(BaseSizeController enemySizeController, BaseSizeController playerSizeController)
         {
             Debug.Log($"Battle ");
-            StartCoroutine(BattleCoroutine(enemySizeController,playerSizeController));
+            StartCoroutine(BattleCoroutine(enemySizeController, playerSizeController));
         }
 
-        private IEnumerator BattleCoroutine(BaseSizeController enemySizeController,BaseSizeController playerSizeController)
+        private IEnumerator BattleCoroutine(BaseSizeController enemySizeController,
+            BaseSizeController playerSizeController)
         {
             while (enemySizeController.currentCharacterSize > 0 && playerSizeController.currentCharacterSize > 0)
             {
@@ -26,7 +26,6 @@ namespace Gameplay
                 //todo battle animation for both
 
                 yield return new WaitForSeconds(0.1f);
-                
             }
 
             if (enemySizeController.currentCharacterSize == 0)
@@ -40,16 +39,18 @@ namespace Gameplay
                 Debug.Log("Enemy wins");
                 //game over scene
             }
+
             Destroy(this);
         }
 
-        public void EatHuman(BaseSizeController enemySizeController,BaseSizeController playerSizeController)
+        public void EatHuman(BaseSizeController enemySizeController, BaseSizeController playerSizeController)
         {
             Debug.Log($"EatHuman ");
-            StartCoroutine(EatHumanCoroutine(enemySizeController,playerSizeController));
+            StartCoroutine(EatHumanCoroutine(enemySizeController, playerSizeController));
         }
-        
-        private IEnumerator EatHumanCoroutine(BaseSizeController enemySizeController,BaseSizeController playerSizeController)
+
+        private IEnumerator EatHumanCoroutine(BaseSizeController enemySizeController,
+            BaseSizeController playerSizeController)
         {
             while (enemySizeController.currentCharacterSize > 0)
             {
@@ -61,7 +62,7 @@ namespace Gameplay
 
                 yield return new WaitForSeconds(0.1f);
             }
-            
+
             if (enemySizeController.currentCharacterSize == 0)
             {
                 Debug.Log("Player wins");
@@ -73,25 +74,32 @@ namespace Gameplay
                 Debug.Log("Enemy wins");
                 //game over scene
             }
+
             Destroy(this);
         }
 
-        public void BossBattle(HealthController enemySize, PlayerSizeController playerSizeController)
+        public void BossBattle(EnemyCharacter enemyCharacter, PlayerSizeController playerSizeController)
         {
-            StartCoroutine(BossBattleCoroutine(enemySize,playerSizeController));
+            Debug.Log("Entered boss battle");
+            StartCoroutine(BossBattleCoroutine(enemyCharacter, playerSizeController));
         }
 
-        private IEnumerator BossBattleCoroutine(HealthController enemyHealthController, PlayerSizeController playerSizeController)
+        private IEnumerator BossBattleCoroutine(EnemyCharacter enemyCharacter,
+            PlayerSizeController playerSizeController)
         {
-            while (enemyHealthController.currentHealth > 0 && playerSizeController.currentCharacterSize > 0)
+            var boss = (Boss) enemyCharacter.enemy;
+            while (boss.currentHealth > 0 && playerSizeController.currentCharacterSize > 0)
             {
-                                
                 playerSizeController.RemoveCharacter(1);
-                enemyHealthController.TakeDamage(1);
+                //Todo we can seperate this method according the boss and player attack speed
+                boss._healthController.TakeDamage(1);
+                if (boss.currentHealth < 0)
+                {
+                    enemyCharacter._characterPool.Release(enemyCharacter);
+                }
 
                 yield return new WaitForSeconds(0.1f);
             }
-            
         }
     }
 }

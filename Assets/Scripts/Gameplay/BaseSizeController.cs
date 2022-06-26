@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,10 +6,9 @@ namespace Gameplay
 {
     public class BaseSizeController : MonoBehaviour
     {
-        [SerializeField] public List<Character> characters = new();
+        [SerializeField] public List<CharacterBase> characters = new();
         [SerializeField] public int startCharacterSize = 5;
         [SerializeField] public int currentCharacterSize;
-        [SerializeField] public string currentCharacterName;
         private CharacterPool _characterPool;
 
         private void Awake()
@@ -20,20 +18,18 @@ namespace Gameplay
 
         private void Start()
         {
-            Debug.Log($"currentCharacterName: {currentCharacterName}");
             AddCharacter(startCharacterSize);
             currentCharacterSize = startCharacterSize;
-
         }
 
         public void RemoveCharacter(int size)
         {
-            Debug.Log("Entered RemoveCharacter "+size);
+            Debug.Log("Entered RemoveCharacter " + size);
 
             for (var i = 0; i < size; i++)
             {
                 //characters[i].animationController.PlayDeadAnim();
-                _characterPool._characterPool.Release(characters[i]);
+                _characterPool.characterPool.Release(characters[i]);
 
                 characters.RemoveAt(i);
                 currentCharacterSize--;
@@ -42,12 +38,10 @@ namespace Gameplay
                 {
                     //TODO: Game Over
                 }
-
-                //characters[i].gameObject.SetActive(false);
             }
         }
 
-        public void AddCharacter(int size)
+        protected void AddCharacter(int size)
         {
             Debug.Log("Entered AddCharacter");
             StartCoroutine(AddCharacterCoroutine(size));
@@ -59,7 +53,7 @@ namespace Gameplay
             currentCharacterSize += size;
             for (var i = 0; i < size; i++)
             {
-                if (_characterPool != null) _characterPool._characterPool.Get();
+                if (_characterPool != null) _characterPool.characterPool.Get();
 
                 yield return new WaitForSeconds(0.03f);
             }
