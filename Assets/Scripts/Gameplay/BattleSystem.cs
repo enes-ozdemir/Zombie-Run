@@ -55,7 +55,9 @@ namespace Gameplay
             while (enemySizeController.currentCharacterSize > 0)
             {
                 enemySizeController.RemoveCharacter(1);
+                var newCharMeshIndex= enemySizeController.characters[0].GetComponents<CharacterBase>()[0].characterMeshIndex;
                 var enemySize = enemySizeController.currentCharacterSize;
+                playerSizeController.AddCharacter(1, newCharMeshIndex);
                 Debug.Log($"Enemy size: {enemySize}");
 
                 //todo battle animation for both
@@ -95,7 +97,7 @@ namespace Gameplay
                 boss._healthController.TakeDamage(1);
                 if (boss.currentHealth < 0)
                 {
-                    enemyCharacter._characterPool.Release(enemyCharacter);
+                    enemyCharacter.characterPool.Release(enemyCharacter);
                 }
 
                 yield return new WaitForSeconds(0.1f);

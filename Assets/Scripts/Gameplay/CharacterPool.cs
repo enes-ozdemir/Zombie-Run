@@ -1,7 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Pool;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Gameplay
@@ -11,6 +9,7 @@ namespace Gameplay
         public IObjectPool<CharacterBase> characterPool;
         [SerializeField] private CharacterBase characterPrefab;
         private BaseSizeController _sizeController;
+        [Range(1, 51)] public int characterMeshIndex = 1;
 
         void Awake()
         {
@@ -29,9 +28,9 @@ namespace Gameplay
 
         private void OnRelease(CharacterBase characterBase)
         {
-            Debug.Log("Create Character called",this);
-
-            characterBase.gameObject.SetActive(false);
+            Debug.Log("OnRelease Character called",this);
+            var characterDie = characterBase.CharacterDie();
+            StartCoroutine(characterDie);
         }
 
         private void OnGet(CharacterBase characterBase)
@@ -39,6 +38,7 @@ namespace Gameplay
             Debug.Log("Entered OnGet");
 
             characterBase.gameObject.SetActive(true);
+            characterBase.characterMeshIndex = characterMeshIndex;
             var characterTransform = characterBase.transform;
             var position = transform.position;
 

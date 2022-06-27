@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -55,17 +55,18 @@ namespace Gameplay
 
         private void SetNewCharacterSize(Waypoint.Operation currentOperation, int currentValue)
         {
+            int randomMesh = Random.Range(1, Constant.maxMeshIndex);
             switch (currentOperation)
             {
                 case Waypoint.Operation.Add:
-                    AddCharacter(currentValue);
+                    AddCharacter(currentValue, randomMesh);
                     break;
                 case Waypoint.Operation.Subtract:
                     RemoveCharacter(currentValue);
                     currentCharacterSize -= currentValue;
                     break;
                 case Waypoint.Operation.Multiply:
-                    AddCharacter(currentCharacterSize * currentValue - currentCharacterSize);
+                    AddCharacter(currentCharacterSize * currentValue - currentCharacterSize,randomMesh);
                     break;
                 case Waypoint.Operation.Divide:
                     RemoveCharacter(currentCharacterSize - currentCharacterSize / currentValue);

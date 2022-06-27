@@ -1094,7 +1094,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1843160f44c00c44d9d4be5e433d2248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 50
+  movementSpeed: 10
 --- !u!54 &814997682
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1149,7 +1149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 371ee9e528c6402195a8a16ea7ca0417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPrefab: {fileID: 7447305327423069778, guid: ba18968fa3390ca44b018db3aa7c450a,
+  characterPrefab: {fileID: -33119231172198457, guid: 29ad734493fc6774499bc59bf2baf16d,
     type: 3}
 --- !u!1 &819367747
 GameObject:
@@ -1360,6 +1360,7 @@ GameObject:
   - component: {fileID: 1026339636}
   - component: {fileID: 1026339635}
   - component: {fileID: 1026339634}
+  - component: {fileID: 1026339638}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -1446,6 +1447,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1026339638
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026339633}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &1170441315 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4119166543106120770, guid: 0ae677912d88a4947b3eec8cf84a3fa8,
@@ -1500,7 +1521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characters: []
-  startCharacterSize: 1
+  startCharacterSize: 5
   currentCharacterSize: 0
 --- !u!65 &1346539872
 BoxCollider:
@@ -1543,7 +1564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 371ee9e528c6402195a8a16ea7ca0417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPrefab: {fileID: 5774913141346953154, guid: 08038697abea94642aeff511d9ee1ab8,
+  characterPrefab: {fileID: 1134214506267255332, guid: 0ae677912d88a4947b3eec8cf84a3fa8,
     type: 3}
 --- !u!1 &1400463164
 GameObject:
