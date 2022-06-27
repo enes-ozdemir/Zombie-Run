@@ -55,9 +55,9 @@ namespace Gameplay
             while (enemySizeController.currentCharacterSize > 0)
             {
                 enemySizeController.RemoveCharacter(1);
-                var newCharMeshIndex= enemySizeController.characters[0].GetComponents<CharacterBase>()[0].characterMeshIndex;
+                //var newCharMeshIndex= enemySizeController.characters[0].GetComponents<CharacterBase>()[0].characterMeshIndex;
                 var enemySize = enemySizeController.currentCharacterSize;
-                playerSizeController.AddCharacter(1, newCharMeshIndex);
+                playerSizeController.AddCharacter(1);
                 Debug.Log($"Enemy size: {enemySize}");
 
                 //todo battle animation for both

@@ -18,8 +18,8 @@ namespace Gameplay
 
         private void Start()
         {
-            int randomMesh = Random.Range(1, Constant.maxMeshIndex);
-            AddCharacter(startCharacterSize, randomMesh);
+          //  int randomMesh = Random.Range(1, Constant.maxMeshIndex);
+            AddCharacter(startCharacterSize);
             currentCharacterSize = startCharacterSize;
         }
 
@@ -42,13 +42,13 @@ namespace Gameplay
             }
         }
 
-        public void AddCharacter(int size, int newCharMeshIndex)
+        public void AddCharacter(int size)
         {
             Debug.Log("Entered AddCharacter");
-            StartCoroutine(AddCharacterCoroutine(size, newCharMeshIndex));
+            StartCoroutine(AddCharacterCoroutine(size));
         }
 
-        private IEnumerator AddCharacterCoroutine(int size, int newCharMeshIndex)
+        private IEnumerator AddCharacterCoroutine(int size)
         {
             Debug.Log("AddCharacter called");
             currentCharacterSize += size;
@@ -56,7 +56,7 @@ namespace Gameplay
             {
                 if (_characterPool != null)
                 {
-                    _characterPool.characterMeshIndex = newCharMeshIndex;
+                    //_characterPool.characterMeshIndex = newCharMeshIndex;
                     _characterPool.characterPool.Get();
                 }
 

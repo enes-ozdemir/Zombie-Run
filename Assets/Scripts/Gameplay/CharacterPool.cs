@@ -9,7 +9,7 @@ namespace Gameplay
         public IObjectPool<CharacterBase> characterPool;
         [SerializeField] private CharacterBase characterPrefab;
         private BaseSizeController _sizeController;
-        [Range(1, 51)] public int characterMeshIndex = 1;
+       // [Range(1, 51)] public int characterMeshIndex = 1;
 
         void Awake()
         {
@@ -38,7 +38,7 @@ namespace Gameplay
             Debug.Log("Entered OnGet");
 
             characterBase.gameObject.SetActive(true);
-            characterBase.characterMeshIndex = characterMeshIndex;
+            //characterBase.characterMeshIndex = characterMeshIndex;
             var characterTransform = characterBase.transform;
             var position = transform.position;
 

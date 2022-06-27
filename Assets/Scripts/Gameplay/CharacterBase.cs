@@ -10,7 +10,7 @@ namespace Gameplay
         private Vector3 _characterDirection;
         private Rigidbody _rb;
         protected AnimationController animationController;
-        [Range(1, 51)] public int characterMeshIndex = 1;
+        //[Range(1, 51)] public int characterMeshIndex = 1;
 
         public IObjectPool<CharacterBase> characterPool;
 
