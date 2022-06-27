@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,7 +7,16 @@ namespace Gameplay
     public class PlayerSizeController : BaseSizeController
     {
         [SerializeField] public UnityEvent onEnemyEncounter;
+        [SerializeField] private TextMeshPro countText;
 
+        private void Start()
+        {
+            
+            AddCharacter(startCharacterSize);
+            currentCharacterSize = startCharacterSize;
+            countText.text = currentCharacterSize.ToString();
+        }
+        
         private void OnTriggerEnter(Collider collision)
         {
             if (collision.transform.CompareTag("Waypoint"))
@@ -74,6 +84,8 @@ namespace Gameplay
                     RemoveCharacter(currentCharacterSize - currentCharacterSize / currentValue);
                     break;
             }
+
+            countText.text = currentCharacterSize.ToString();
         }
     }
 }
