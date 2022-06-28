@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using TMPro;
+using UnityEngine;
 
 namespace Gameplay
 {
@@ -6,23 +8,36 @@ namespace Gameplay
     {
         public Operation operation;
         public int value;
-        public bool canFight;
-        public Type waypointType;
-        public GameObject gatePrefab;
+        public TextMeshPro valueText;
 
         public enum Operation
         {
-            Add,
-            Subtract,
-            Multiply,
-            Divide
+            Add = 0,
+            Subtract = 1,
+            Multiply = 2,
+            Divide = 3
         }
 
-        public enum Type
+        private void Start()
         {
-            People,
-            Police,
-            Boss
+            transform.GetChild((int) operation).gameObject.SetActive(true);
+
+            switch (operation)
+            {
+                case Operation.Add:
+                    valueText.text = "+" + value;
+                    break;
+                case Operation.Subtract:
+                    valueText.text = "-" + value;
+                    break;
+                case Operation.Multiply:
+                    valueText.text = "x" + value;
+                    break;
+                case Operation.Divide:
+                    valueText.text = "÷" + value;
+                    break;
+            }
+
         }
     }
 }
