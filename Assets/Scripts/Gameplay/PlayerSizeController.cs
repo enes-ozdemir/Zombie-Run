@@ -18,23 +18,13 @@ namespace Gameplay
 
         private void OnTriggerEnter(Collider collision)
         {
-            if (collision.transform.CompareTag("Waypoint"))
-            {
-                
-                var currentWaypoint = collision.GetComponent<Waypoint>();
+            CheckWaypointCollision(collision);
 
-                Debug.Log("Entered to a waypoint");
+            CheckEnemyCollision(collision);
+        }
 
-                if (currentWaypoint.isActive)
-                {
-                    currentWaypoint.SetInactive();
-                    var currentOperation = currentWaypoint.operation;
-                    var currentValue = currentWaypoint.value;
-                    SetNewCharacterSize(currentOperation, currentValue);
-                }
-                
-            }
-
+        private void CheckEnemyCollision(Collider collision)
+        {
             if (collision.transform.CompareTag("Enemy"))
             {
                 onEnemyEncounter.Invoke();
@@ -68,8 +58,32 @@ namespace Gameplay
             }
         }
 
+        private void CheckWaypointCollision(Collider collision)
+        {
+            var currentWaypoint = collision.GetComponentInParent<Waypoint>();
+
+            if (collision.transform.CompareTag("WaypointLeft") && !currentWaypoint.isActive)
+            {
+                Debug.Log("Entered to a WaypointLeft");
+                var currentOperation = currentWaypoint.leftOperation;
+                var currentValue = currentWaypoint.leftValue;
+                currentWaypoint.isActive = true;
+                SetNewCharacterSize(currentOperation, currentValue);
+            }
+            else if (collision.transform.CompareTag("WaypointRight") && !currentWaypoint.isActive)
+            {
+                Debug.Log("Entered to a WaypointRight");
+                var currentOperation = currentWaypoint.rightOperation;
+                var currentValue = currentWaypoint.rightValue;
+                currentWaypoint.isActive = true;
+                SetNewCharacterSize(currentOperation, currentValue);
+            }
+        }
+
         private void SetNewCharacterSize(Waypoint.Operation currentOperation, int currentValue)
         {
+            Debug.Log(
+                "Entered to a SetNewCharacterSize current Operation is" + currentOperation + "with" + currentValue);
             switch (currentOperation)
             {
                 case Waypoint.Operation.Add:

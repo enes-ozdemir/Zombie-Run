@@ -1,15 +1,19 @@
-﻿using System.Collections;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace Gameplay
 {
     public class Waypoint : MonoBehaviour
     {
-        public Operation operation;
-        public int value;
-        [SerializeField] private TextMeshPro valueText;
-        public bool isActive = true;
+        [SerializeField] private Transform leftWaypoint;
+        [SerializeField] private Transform rightWaypoint;
+        public Operation leftOperation;
+        public Operation rightOperation;
+        public int leftValue;
+        public int rightValue;
+        [SerializeField] private TextMeshPro leftValueText;
+        [SerializeField] private TextMeshPro rightValueText;
+        public bool isActive = false;
 
         public enum Operation
         {
@@ -21,7 +25,13 @@ namespace Gameplay
 
         private void Start()
         {
-            transform.GetChild((int) operation).gameObject.SetActive(true);
+            InitWaypoint(leftWaypoint, leftValue, leftValueText, leftOperation);
+            InitWaypoint(rightWaypoint, rightValue, rightValueText, rightOperation);
+        }
+
+        private void InitWaypoint(Transform waypoint, int value, TMP_Text valueText, Operation operation)
+        {
+            waypoint.GetChild((int) operation).gameObject.SetActive(true);
 
             switch (operation)
             {
@@ -38,21 +48,6 @@ namespace Gameplay
                     valueText.text = "÷" + value;
                     break;
             }
-
         }
-
-        public void SetInactive()
-        {
-            StartCoroutine(SetInactiveCoroutine());
-        }
-        
-        private IEnumerator SetInactiveCoroutine()
-        {
-            Debug.Log("Set Active false");
-            isActive = false;
-            yield return new WaitForSeconds(0.5f);
-            isActive = true;
-        }
-        
     }
 }

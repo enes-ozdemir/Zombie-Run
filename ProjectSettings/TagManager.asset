@@ -8,6 +8,8 @@ TagManager:
   - Main
   - Enemy
   - Obstacle
+  - WaypointLeft
+  - WaypointRight
   layers:
   - Default
   - TransparentFX
