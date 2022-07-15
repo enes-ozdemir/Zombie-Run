@@ -274,8 +274,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.9714706, y: 1, z: 1}
+  m_Center: {x: -0.00330503, y: 0, z: 0}
 --- !u!114 &8076799421971448962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,9 +288,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da7ee79461d424aafad049f36e396c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  operation: 2
-  value: 10
+  operation: 0
+  value: 5
   valueText: {fileID: 4303478233317590849}
+  isActive: 1
 --- !u!1001 &8076799421697847265
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -519,6 +520,18 @@ PrefabInstance:
     - target: {fileID: 486756, guid: e369416ca848b20439557e28d5afc76f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 19843228, guid: e369416ca848b20439557e28d5afc76f, type: 3}
+      propertyPath: CollisionModule.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19843228, guid: e369416ca848b20439557e28d5afc76f, type: 3}
+      propertyPath: CollisionModule.multiplyColliderForceByParticleSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19843228, guid: e369416ca848b20439557e28d5afc76f, type: 3}
+      propertyPath: CollisionModule.multiplyColliderForceByParticleSpeed
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e369416ca848b20439557e28d5afc76f, type: 3}

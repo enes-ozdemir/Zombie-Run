@@ -25,8 +25,6 @@ namespace Gameplay
 
         public void RemoveCharacter(int size)
         {
-            Debug.Log("Entered RemoveCharacter " + size);
-
             for (var i = 0; i < size; i++)
             {
                 //characters[i].animationController.PlayDeadAnim();
@@ -44,13 +42,11 @@ namespace Gameplay
 
         public void AddCharacter(int size)
         {
-            Debug.Log("Entered AddCharacter");
             StartCoroutine(AddCharacterCoroutine(size));
         }
 
         private IEnumerator AddCharacterCoroutine(int size)
         {
-            Debug.Log("AddCharacter called");
             currentCharacterSize += size;
             for (var i = 0; i < size; i++)
             {

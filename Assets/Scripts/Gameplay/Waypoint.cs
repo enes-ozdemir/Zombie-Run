@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -8,7 +8,8 @@ namespace Gameplay
     {
         public Operation operation;
         public int value;
-        public TextMeshPro valueText;
+        [SerializeField] private TextMeshPro valueText;
+        public bool isActive = true;
 
         public enum Operation
         {
@@ -39,5 +40,19 @@ namespace Gameplay
             }
 
         }
+
+        public void SetInactive()
+        {
+            StartCoroutine(SetInactiveCoroutine());
+        }
+        
+        private IEnumerator SetInactiveCoroutine()
+        {
+            Debug.Log("Set Active false");
+            isActive = false;
+            yield return new WaitForSeconds(0.5f);
+            isActive = true;
+        }
+        
     }
 }

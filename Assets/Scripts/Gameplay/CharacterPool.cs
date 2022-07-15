@@ -19,7 +19,6 @@ namespace Gameplay
 
         private CharacterBase CreateCharacter()
         {
-            Debug.Log("Create Character called");
             var character = Instantiate(characterPrefab, transform);
             _sizeController.characters.Add(character);
             character.SetPool(characterPool);
@@ -28,15 +27,12 @@ namespace Gameplay
 
         private void OnRelease(CharacterBase characterBase)
         {
-            Debug.Log("OnRelease Character called",this);
             var characterDie = characterBase.CharacterDie();
             StartCoroutine(characterDie);
         }
 
         private void OnGet(CharacterBase characterBase)
         {
-            Debug.Log("Entered OnGet");
-
             characterBase.gameObject.SetActive(true);
             //characterBase.characterMeshIndex = characterMeshIndex;
             var characterTransform = characterBase.transform;

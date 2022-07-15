@@ -11,22 +11,28 @@ namespace Gameplay
 
         private void Start()
         {
-            
             AddCharacter(startCharacterSize);
             currentCharacterSize = startCharacterSize;
             countText.text = currentCharacterSize.ToString();
         }
-        
+
         private void OnTriggerEnter(Collider collision)
         {
             if (collision.transform.CompareTag("Waypoint"))
             {
+                
+                var currentWaypoint = collision.GetComponent<Waypoint>();
+
                 Debug.Log("Entered to a waypoint");
 
-                var currentOperation = collision.GetComponent<Waypoint>().operation;
-                var currentValue = collision.GetComponent<Waypoint>().value;
-
-                SetNewCharacterSize(currentOperation, currentValue);
+                if (currentWaypoint.isActive)
+                {
+                    currentWaypoint.SetInactive();
+                    var currentOperation = currentWaypoint.operation;
+                    var currentValue = currentWaypoint.value;
+                    SetNewCharacterSize(currentOperation, currentValue);
+                }
+                
             }
 
             if (collision.transform.CompareTag("Enemy"))

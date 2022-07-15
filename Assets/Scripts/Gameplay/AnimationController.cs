@@ -20,7 +20,6 @@ namespace Gameplay
 
         public void PlayBornAnim()
         {
-            Debug.Log("Born");
             _animation.Play("Born");
         }
         public void PlayAttackAnim()
@@ -31,7 +30,6 @@ namespace Gameplay
 
         public void PlayWalkAnim()
         {
-            Debug.Log("Walk");
             _animation.Play("Walk");
         }
 
